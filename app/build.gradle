@@ -13,6 +13,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        ndkVersion "21.3.6528147"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,6 +24,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "flavor"
+    productFlavors {
+        "flavor1" {
+            externalNativeBuild {
+                cmake {
+                    arguments += "-DFLAVOR=FLAVOR1"
+                }
+            }
+        }
+        "flavor2" {
+            externalNativeBuild {
+                cmake {
+                    arguments += "-DFLAVOR=FLAVOR2"
+                }
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
